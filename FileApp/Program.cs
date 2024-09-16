@@ -64,6 +64,21 @@ namespace FileApp
                     Console.WriteLine($"Метка: {drive.VolumeLabel}");
                 }
             }
+
+            GetCatalogs();
+
+            try
+            {
+                DirectoryInfo dirInfo = new DirectoryInfo(@"С:\\");
+                if (dirInfo.Exists)
+                {
+                    Console.WriteLine(dirInfo.GetDirectories().Length + dirInfo.GetFiles().Length);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }
