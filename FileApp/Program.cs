@@ -47,6 +47,7 @@ namespace FileApp
                     Console.WriteLine(s);
             }
         }
+
         static void Main()
         {
             // получим системные диски
@@ -73,22 +74,32 @@ namespace FileApp
                 if (dirInfo.Exists)
                 {
                     Console.WriteLine(dirInfo.GetDirectories().Length + dirInfo.GetFiles().Length);
-                    DirectoryInfo newDirectory = new DirectoryInfo(@"/newDirectory");
-                    if (!newDirectory.Exists)
-                        newDirectory.Create();
-                    Console.WriteLine(newDirectory.GetDirectories().Length + newDirectory.GetFiles().Length);
-                    Console.WriteLine($"Название каталога: {newDirectory.Name}");
-                    Console.WriteLine($"Полное название каталога: {newDirectory.FullName}");
-                    Console.WriteLine($"Время создания каталога: {newDirectory.CreationTime}"); 
-                    Console.WriteLine($"Корневой каталог: {newDirectory.Root}");
-                    newDirectory.Delete(true); // Удаление со всем содержимым
-                    Console.WriteLine("Каталог удален");
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-            }           
+            } 
+            try 
+            {
+                DirectoryInfo newDirectory = new DirectoryInfo(@"/Users/ivan.bannikov/Desktop/newDirectory");
+                if (!newDirectory.Exists)
+                    newDirectory.Create();
+                Console.WriteLine(newDirectory.GetDirectories().Length + newDirectory.GetFiles().Length);
+                Console.WriteLine($"Название каталога: {newDirectory.Name}");
+                Console.WriteLine($"Полное название каталога: {newDirectory.FullName}");
+                Console.WriteLine($"Время создания каталога: {newDirectory.CreationTime}");
+                Console.WriteLine($"Корневой каталог: {newDirectory.Root}");
+                newDirectory.Delete(true); // Удаление со всем содержимым
+                Console.WriteLine("Каталог удален");
+                DirectoryInfo dirtotrash = new DirectoryInfo(@"C:\Users\ivan.bannikov\Desktop\testFolder");
+                string trashPath = "/Users/ivan.bannikov/.Trash";
+                dirtotrash.MoveTo(trashPath);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }
