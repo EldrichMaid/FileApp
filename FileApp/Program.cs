@@ -76,13 +76,19 @@ namespace FileApp
                     DirectoryInfo newDirectory = new DirectoryInfo(@"/newDirectory");
                     if (!newDirectory.Exists)
                         newDirectory.Create();
-                    Console.WriteLine(dirInfo.GetDirectories().Length + dirInfo.GetFiles().Length);
+                    Console.WriteLine(newDirectory.GetDirectories().Length + newDirectory.GetFiles().Length);
+                    Console.WriteLine($"Название каталога: {newDirectory.Name}");
+                    Console.WriteLine($"Полное название каталога: {newDirectory.FullName}");
+                    Console.WriteLine($"Время создания каталога: {newDirectory.CreationTime}"); 
+                    Console.WriteLine($"Корневой каталог: {newDirectory.Root}");
+                    newDirectory.Delete(true); // Удаление со всем содержимым
+                    Console.WriteLine("Каталог удален");
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-            }
+            }           
         }
     }
 }
