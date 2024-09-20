@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 namespace FileApp
 {
     public class Drive
@@ -150,6 +151,11 @@ namespace FileApp
                 string str = "";
                 while ((str = sr.ReadLine()) != null)
                 Console.WriteLine(str);
+            }
+            var fileInfo = new FileInfo("C:/Users/ivan.bannikov/source/repos/FileApp/FileApp/Program.cs");
+            using (StreamWriter sw = fileInfo.AppendText())
+            {
+                sw.WriteLine($"// Время запуска: {DateTime.Now}");
             }
         }
     }
