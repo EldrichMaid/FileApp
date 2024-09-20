@@ -100,6 +100,14 @@ namespace FileApp
             {
                 Console.WriteLine(e.Message);
             }
+
+            string filePath = @"C:\Users\ivan.bannikov\source\repos\FileApp\FileApp\Program.cs"; 
+            using (StreamReader sr = File.OpenText(filePath))
+            {
+                string str = "";
+                while ((str = sr.ReadLine()) != null)
+                Console.WriteLine(str);
+            }
         }
     }
 }
