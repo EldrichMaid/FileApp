@@ -20,6 +20,49 @@ namespace FileApp
         public List<string> Files { get; set; } = new List<string>();
     }
 
+    class FileWriter
+    {
+        public static void Main()
+        {
+            string tempFile = Path.GetTempFileName(); // используем генерацию имени файла.
+            var fileInfo = new FileInfo(tempFile); // Создаем объект класса FileInfo.
+            //Создаем файл и записываем в него.
+            using (StreamWriter sw = fileInfo.CreateText())
+            {
+                sw.WriteLine("Name");
+                sw.WriteLine("Path");
+                sw.WriteLine("Element");
+            }
+            //Открываем файл и читаем из него.
+            using (StreamReader sr = fileInfo.OpenText())
+            {
+                string str = "";
+                while ((str = sr.ReadLine()) != null)
+                {
+                    Console.WriteLine(str);
+                }
+            }
+
+            try
+            {
+                string tempFile2 = Path.GetTempFileName();
+                var fileInfo2 = new FileInfo(tempFile2);
+                // Убедимся, что файл назначения точно отсутствует
+                fileInfo2.Delete();
+                // Копируем информацию
+                fileInfo.CopyTo(tempFile2);
+                Console.WriteLine($"{tempFile} скопирован в файл {tempFile2}.");
+                //Удаляем ранее созданный файл.
+                fileInfo.Delete();
+                Console.WriteLine($"{tempFile} удален.");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Ошибка: {e}");
+            }
+        }
+    }
+
     internal class Program
     {
         Dictionary<string, Folder> Folders = new Dictionary<string, Folder>();
@@ -92,9 +135,9 @@ namespace FileApp
                 Console.WriteLine($"Корневой каталог: {newDirectory.Root}");
                 newDirectory.Delete(true); // Удаление со всем содержимым
                 Console.WriteLine("Каталог удален");
-                DirectoryInfo dirtotrash = new DirectoryInfo(@"C:\Users\ivan.bannikov\Desktop\testFolder");
-                string trashPath = "/Users/ivan.bannikov/.Trash";
-                dirtotrash.MoveTo(trashPath);
+                //DirectoryInfo dirtotrash = new DirectoryInfo(@"C:\Users\ivan.bannikov\Desktop\testFolder");
+                //string trashPath = "/Users/ivan.bannikov/.Trash";
+                //dirtotrash.MoveTo(trashPath);
             }
             catch (Exception e)
             {
